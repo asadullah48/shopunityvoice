@@ -36,6 +36,7 @@ ShopUnity is a full-stack marketplace built for the Pakistani market. Buyers can
 | Wishlist | | |
 | B2B wholesale: RFQ flow | | |
 | Account & address management | | |
+| | AI-generated SEO metadata (title/meta description/keywords/JSON-LD via Claude) | |
 
 ---
 
@@ -44,8 +45,8 @@ ShopUnity is a full-stack marketplace built for the Pakistani market. Buyers can
 **Prerequisites:** Docker Desktop, Git
 
 ```bash
-git clone https://github.com/asadullah48/bazaar.git
-cd bazaar
+git clone https://github.com/asadullah48/shopunityvoice.git
+cd shopunityvoice
 
 # Copy env template and fill in secrets
 cp backend/.env.example backend/.env
@@ -196,6 +197,38 @@ Frontend — create `frontend/.env.local`:
 5. Open the PR targeting `main`
 
 ---
+
+## Agentic AI Alignment
+
+- **Autonomy** — `app/services/seo_generator.py` calls Claude
+  (`claude-haiku-4-5-20251001`) to generate a product's SEO title, meta
+  description, keywords, and JSON-LD on its own from just the product's
+  title/description — no human writes SEO copy per listing. This is an
+  AI-generation feature today, not a multi-step agent: one prompt, one
+  structured response.
+- **Resilience** — the SEO call is content-hashed and cached in Redis for
+  24h (`SEO_TTL`), so a re-run against an unchanged product costs nothing
+  and a missing `ANTHROPIC_API_KEY` fails fast with a clear error instead
+  of silently degrading the listing.
+- **Adaptivity** — the cache key is derived from `title|description|updated_at`,
+  so editing a product invalidates its stale SEO data automatically
+  rather than requiring a manual regenerate step.
+
+## Roadmap
+
+- [ ] Extend AI generation beyond SEO metadata to full product description
+      drafting from seller-supplied bullet points
+- [ ] A recommendation/search-ranking pass over the catalog (currently
+      plain filter/search, no ranking model)
+- [ ] CI running the 78-test suite against a real Postgres/Redis service
+      container on push
+
+## Author
+
+Built by **Asadullah Shafique**
+
+Explore my portfolio showcasing Agentic AI projects and real-world applications:
+[asadullahshafique-devunity.vercel.app](https://asadullahshafique-devunity.vercel.app)
 
 ## License
 
