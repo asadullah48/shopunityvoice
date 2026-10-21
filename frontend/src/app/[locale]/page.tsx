@@ -16,8 +16,8 @@ import type { Product } from "@/types";
 // ─── Trust Strip ─────────────────────────────────────────────────────────────
 function TrustStrip() {
   const stats = [
-    { value: "500+", label: "Verified Sellers" },
-    { value: "10K+", label: "Products Listed" },
+    { value: "Demo", label: "Seed data only" },
+    { value: "EN · AR · UR", label: "Three languages" },
     { value: "PKR", label: "Primary Currency" },
     { value: "B2C + B2B", label: "Dual Mode" },
   ];

@@ -27,7 +27,7 @@ const SLIDES: Slide[] = [
     id: "textiles",
     badge: "Summer Collection 2026",
     heading: "Premium Pakistani\nTextiles",
-    sub: "Lawn, Linen & Embroidered Suits — up to 40% off from verified sellers",
+    sub: "Lawn, Linen & Embroidered Suits — up to 40% off",
     cta: "Shop Textiles",
     href: "/en/products",
     image:
